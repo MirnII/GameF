@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="MATCH_3._3.figures.hexagon"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MATCH_3._3.figures"
+             mc:Ignorable="d" 
+             d:DesignHeight="40" d:DesignWidth="40">
+    <Grid>
+        <Polygon Points="10,3 30,3 36,20 30,37 10,37 4,20" 
+                 StrokeThickness="5" 
+                 Stroke="#FFE82362" 
+                 FillRule="EvenOdd" 
+                 Fill="#FFD8A4F1"
+                 MouseDown="Polygon_MouseDown">
+            <Polygon.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform CenterX="20"
+                                    CenterY="20">
+
+                    </ScaleTransform>
+                </TransformGroup>
+            </Polygon.RenderTransform>
+            <Polygon.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="(Polygon.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)"
+                                             By="0.2"
+                                             Duration="0:0:0.4"
+                                             AutoReverse="True"
+                                             RepeatBehavior="Forever"/>
+                            <DoubleAnimation Storyboard.TargetProperty="(Polygon.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)"
+                                             By="0.2"
+                                             Duration="0:0:0.4"
+                                             AutoReverse="True"
+                                             RepeatBehavior="Forever"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="(Polygon.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)"
+                                             Duration="0:0:0.2" 
+                                             ></DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetProperty="(Polygon.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)"
+                                             Duration="0:0:0.2" 
+                                             ></DoubleAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Polygon.Triggers>
+        </Polygon>
+    </Grid>
+</UserControl>

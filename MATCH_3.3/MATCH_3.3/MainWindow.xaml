@@ -1,0 +1,274 @@
+﻿<Window x:Class="MATCH_3._3.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MATCH_3._3"
+        mc:Ignorable="d"
+        Title="MATCH-3.3" Height="450" Width="600" ResizeMode="NoResize">
+    <Grid Style="{DynamicResource style}">
+        <Image 
+            Source="./Background.jpg" 
+               Stretch="Fill">
+        </Image>
+        <Button FontWeight="Black" 
+                FontSize="48"  
+                x:Name="Start_game" 
+                Content="PLAY" 
+                Template="{DynamicResource butstart}"                 
+                Click="Start_game_Click" 
+                Width="290"
+                Height="80"
+                Margin="166,156,0,0" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top"
+                Style="{DynamicResource butstyle}">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform CenterX="300" 
+                                    CenterY="380">
+                    </ScaleTransform>
+                </TransformGroup>
+            </Button.RenderTransform>
+            <Button.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="Foreground.Color"
+                                                To="Wheat"
+                                                Duration="0:0:1"
+                                                AutoReverse="True"
+                                                RepeatBehavior="Forever"></ColorAnimation>
+                                <DoubleAnimation Storyboard.TargetProperty="FontSize" 
+                                                 To="32"
+                                                 Duration="0:0:1"
+                                                 AutoReverse="True"
+                                                 RepeatBehavior="Forever"></DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="Foreground.Color"
+                                                Duration="0:0:0.5"
+                                                />
+                                <DoubleAnimation Storyboard.TargetProperty="FontSize"
+                                                 Duration="0:0:0.5"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Button.Click">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)"
+                                                 To="0" 
+                                                 Duration="0:0:1.5"/>
+                                <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)"
+                                                 To="0" 
+                                                 Duration="0:0:1.5"/>
+                                <DoubleAnimation Storyboard.TargetName="game_board" 
+                                                 Storyboard.TargetProperty="(Canvas.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)"
+                                                 To="1" 
+                                                 Duration="0:0:1.5"/>
+                                <DoubleAnimation Storyboard.TargetName="game_board" 
+                                                 Storyboard.TargetProperty="(Canvas.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)"
+                                                 To="1" 
+                                                 Duration="0:0:1.5"/>
+                                <DoubleAnimation Storyboard.TargetName="Time"
+                                                 Storyboard.TargetProperty="Opacity"
+                                                 To="1"
+                                                 Duration="0:0:1.5"/>
+                                <DoubleAnimation Storyboard.TargetName="Score"
+                                                 Storyboard.TargetProperty="Opacity"
+                                                 To="1"
+                                                 Duration="0:0:1.5"/>
+                                <DoubleAnimation Storyboard.TargetName="ScoreLabel"
+                                                 Storyboard.TargetProperty="Opacity"
+                                                 To="1"
+                                                 Duration="0:0:1.5"/>
+                                <DoubleAnimation Storyboard.TargetName="GameOVER"
+                                                     Storyboard.TargetProperty="(Grid.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)"
+                                                     To="1"
+                                                     Duration="0:0:1.5"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Button.Triggers>
+        </Button>
+        <Canvas x:Name="game_board" 
+                Width="400" Height="400" 
+                Background="Black" 
+                Opacity="0.6" 
+                Margin="20,10,174,11">
+            <Canvas.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="0" 
+                                    ScaleY="0">
+
+                    </ScaleTransform>
+                </TransformGroup>
+            </Canvas.RenderTransform>
+        </Canvas>
+
+       
+        <TextBlock  Name="Time"
+                    Text="60" 
+                    Foreground="Wheat" 
+                    Opacity="0"
+                    FontSize="48"   
+                    Margin="465,59,24,319"
+                    >
+        </TextBlock>
+
+        <Label Name="ScoreLabel"
+                    Content="Score"
+                    Foreground="Wheat" 
+                    Opacity="0"
+                    FontSize="48" 
+                    Margin="425,148,5,223">
+        </Label>
+        <TextBlock Name="Score"
+                   Text="0"
+                    Foreground="Wheat" 
+                    Opacity="0"
+                   TextAlignment="Center"
+                    FontSize="48"  
+                    Margin="456,201,33,177">
+        </TextBlock>
+        <Grid Name="GameOVER" 
+              Opacity="0"
+              Visibility="Hidden">
+            <Grid.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="1" 
+                                    ScaleY="1">
+
+                    </ScaleTransform>
+                </TransformGroup>
+            </Grid.RenderTransform>
+            <Image Source="./GameOver.jpg" 
+                   Stretch="Fill" 
+                   OpacityMask="Black"
+                    />
+            <Label Content="GAME OVER"
+                   HorizontalAlignment="Left"
+                   Height="57"
+                   Margin="122,54,0,0"
+                   VerticalAlignment="Top" 
+                   Width="339"
+                   Foreground="Wheat" 
+                   />
+            <TextBlock x:Name="YourScore" 
+                       HorizontalAlignment="Left" 
+                       Height="60" 
+                       Margin="173,142,0,0"
+                       TextWrapping="Wrap" 
+                       VerticalAlignment="Top"
+                       Width="239" 
+                       Foreground="Wheat" 
+                       TextAlignment="Center"
+                       />
+            <Button x:Name="ExitMainMenu"
+                    Content="Menu"
+                    HorizontalAlignment="Left" 
+                    Height="76" 
+                    Margin="140,242,0,0"
+                    VerticalAlignment="Top"
+                    Width="307"
+                    FontSize="48"
+                    Template="{DynamicResource butstart}"
+                    Style="{DynamicResource butstyle}" 
+                    Click="ExitMainMenu_Click"
+                    
+                    >
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Storyboard.TargetProperty="Foreground.Color"
+                                                To="Wheat"
+                                                Duration="0:0:1"
+                                                AutoReverse="True"
+                                                RepeatBehavior="Forever"></ColorAnimation>
+                                    <DoubleAnimation Storyboard.TargetProperty="FontSize" 
+                                                 To="32"
+                                                 Duration="0:0:1"
+                                                 AutoReverse="True"
+                                                 RepeatBehavior="Forever"></DoubleAnimation>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger.Actions>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="MouseLeave">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Storyboard.TargetProperty="Foreground.Color"
+                                                Duration="0:0:0.5"
+                                                />
+                                    <DoubleAnimation Storyboard.TargetProperty="FontSize"
+                                                 Duration="0:0:0.5"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger.Actions>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="Button.Click">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="Start_game"
+                                                     Storyboard.TargetProperty="(Button.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)"
+                                                 To="1" 
+                                                 Duration="0:0:1.5"/>
+                                    <DoubleAnimation  Storyboard.TargetName="Start_game"
+                                                      Storyboard.TargetProperty="(Button.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)"
+                                                 To="1" 
+                                                 Duration="0:0:1.5"/>
+                                    <DoubleAnimation Storyboard.TargetName="game_board" 
+                                                 Storyboard.TargetProperty="(Canvas.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)"
+                                                 To="0" 
+                                                 Duration="0:0:1.5"/>
+                                    <DoubleAnimation Storyboard.TargetName="game_board" 
+                                                 Storyboard.TargetProperty="(Canvas.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)"
+                                                 To="0" 
+                                                 Duration="0:0:1.5"/>
+                                    <DoubleAnimation Storyboard.TargetName="Time"
+                                                 Storyboard.TargetProperty="Opacity"
+                                                 To="0"
+                                                 Duration="0:0:1.5"/>
+                                    <DoubleAnimation Storyboard.TargetName="Score"
+                                                 Storyboard.TargetProperty="Opacity"
+                                                 To="0"
+                                                 Duration="0:0:1.5"/>
+                                    <DoubleAnimation Storyboard.TargetName="ScoreLabel"
+                                                 Storyboard.TargetProperty="Opacity"
+                                                 To="0"
+                                                 Duration="0:0:1.5"/>
+                                    <DoubleAnimation Storyboard.TargetName="GameOVER"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="0"
+                                                     Duration="0:0:1.5"/>
+                                    <DoubleAnimation Storyboard.TargetName="GameOVER"
+                                                     Storyboard.TargetProperty="(Grid.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)"
+                                                     To="0"
+                                                     Duration="0:0:1.5"/>
+
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger.Actions>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+        </Grid>
+    </Grid>
+
+</Window>
+    

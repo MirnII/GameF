@@ -1,0 +1,71 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:MATCH_3._3">
+
+    <ControlTemplate x:Key="butstart">
+
+        <Border 
+            Name="Border" 
+            Background="{TemplateBinding Background}"
+            TextBlock.Foreground="{TemplateBinding Foreground}"
+            CornerRadius="25" 
+            BorderBrush="{TemplateBinding BorderBrush}" 
+            BorderThickness="2"  
+            Width="{TemplateBinding Width}"
+            Height="{TemplateBinding Height}">
+
+            <ContentPresenter Margin="{TemplateBinding Padding}" 
+                              Content="{TemplateBinding ContentControl.Content}" 
+                              RecognizesAccessKey="True" 
+                              HorizontalAlignment="Center" 
+                              VerticalAlignment="Center"
+                              >
+
+            </ContentPresenter>
+        </Border>
+        <ControlTemplate.Triggers>
+            <EventTrigger RoutedEvent="MouseEnter">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <ColorAnimation Storyboard.TargetName="Border" 
+                                         Storyboard.TargetProperty="Background.Color"
+                                         To="Red"
+                                         Duration="0:0:1"
+                                         AutoReverse="True"
+                                         RepeatBehavior="Forever"/>
+
+                        <DoubleAnimation Storyboard.TargetName="Border" 
+                                         Storyboard.TargetProperty="Width"
+                                         To="275"
+                                         Duration="0:0:1"
+                                         AutoReverse="True"
+                                         RepeatBehavior="Forever"/>
+                        <DoubleAnimation Storyboard.TargetName="Border" 
+                                         Storyboard.TargetProperty="Height"
+                                         To="65"
+                                         Duration="0:0:1"
+                                         AutoReverse="True"
+                                         RepeatBehavior="Forever"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+            <EventTrigger RoutedEvent="MouseLeave">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <ColorAnimation Storyboard.TargetName="Border"
+                                        Storyboard.TargetProperty="Background.Color"
+                                        Duration="0:0:0.5"></ColorAnimation>
+                        <DoubleAnimation Storyboard.TargetName="Border" 
+                                         Storyboard.TargetProperty="Width"
+                                         Duration="0:0:0.5"
+                                       />
+                        <DoubleAnimation Storyboard.TargetName="Border" 
+                                         Storyboard.TargetProperty="Height"
+                                         Duration="0:0:0.5"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </ControlTemplate.Triggers>
+        
+    </ControlTemplate>
+</ResourceDictionary>
